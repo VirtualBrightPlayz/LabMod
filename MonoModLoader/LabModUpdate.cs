@@ -10,30 +10,30 @@ using RemoteAdmin;
 
 namespace LabMod.Events
 {
-    public interface ILabModUpdate : ILabModEvent
-    {
-        void Event();
-    }
+	public interface ILabModUpdate : ILabModEvent
+	{
+		void Event();
+	}
 
-    public class LabModUpdate
-    {
-        public static List<Type> types_update = new List<Type>();
+	public class LabModUpdate
+	{
+		public static List<Type> types_update = new List<Type>();
 
-        public static void Init()
-        {
-            types_update = new List<Type>(AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface));
-        }
+		public static void Init()
+		{
+			types_update = new List<Type>(AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface));
+		}
 
-        public static void TriggerEvent()
-        {
-            //Huge thanks to all the smarter people who pointed out that this will lag the hell out of the server
-            //var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface);
-            foreach (var type in types_update)
-            {
-                if (LabMod.GetObjectOfType(type) == null)
-                    continue;
-                ((ILabModUpdate)LabMod.GetObjectOfType(type)).Event();
-            }
-        }
-    }
+		public static void TriggerEvent()
+		{
+			//Huge thanks to all the smarter people who pointed out that this will lag the hell out of the server
+			//var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface);
+			foreach (var type in types_update)
+			{
+				if (LabMod.GetObjectOfType(type) == null)
+					continue;
+				((ILabModUpdate)LabMod.GetObjectOfType(type)).Event();
+			}
+		}
+	}
 }

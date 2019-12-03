@@ -12,54 +12,54 @@ using System.Reflection;
 namespace LabMod.Loader
 {
 
-    [MonoModPatch("global::ServerConsole")]
-    class Loader : ServerConsole
-    {
-        public static List<Assembly> plugins;
-        public static List<Type> types_with_event;
+	[MonoModPatch("global::ServerConsole")]
+	class Loader : ServerConsole
+	{
+		public static List<Assembly> plugins;
+		public static List<Type> types_with_event;
 
-        public extern void orig_Update();
-        public void Update()
-        {
-            LabModUpdate.TriggerEvent();
-        }
+		public extern void orig_Update();
+		public void Update()
+		{
+			LabModUpdate.TriggerEvent();
+		}
 
-        public extern void orig_Start();
-        public void Start()
-        {
-            orig_Start();
-            //Console.WriteLine(q);
-            CustomNetworkManager.Modded = true;
-            AddLog("[ModLoader] Start");
-            plugins = new List<Assembly>();
-            string[] files = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Mods"), "*.dll");
-            foreach (var file in files)
-            {
-                AddLog("[ModLoader] Loading mod: " + file);
-                try
-                {
-                    var asm = Assembly.LoadFrom(file);
-                    foreach (var type in asm.GetTypes())
-                    {
-                        type.GetMethod("Main").Invoke(null, new object[0]);
-                    }
-                    plugins.Add(asm);
-                    AppDomain.CurrentDomain.Load(asm.GetName());
-                    AddLog("[ModLoader] Loaded mod: " + file);
-                }
-                catch (Exception e)
-                {
-                    AddLog("[ModLoader] Failed to load mod: " + file);
-                    AddLog("[ModLoader] Fault: " + e.ToString());
-                }
-            }
-            LabModUpdate.Init();
-            LabModGameConsoleQuery.Init();
-            LabModPlayerHurt.Init();
-            LabModPostRoundStart.Init();
-            LabModRoundStart.Init();
-            LabModPreRoundStart.Init();
-            LabModRoundEnd.Init();
-        }
-    }
+		public extern void orig_Start();
+		public void Start()
+		{
+			orig_Start();
+			//Console.WriteLine(q);
+			CustomNetworkManager.Modded = true;
+			AddLog("[ModLoader] Start");
+			plugins = new List<Assembly>();
+			string[] files = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Mods"), "*.dll");
+			foreach (var file in files)
+			{
+				AddLog("[ModLoader] Loading mod: " + file);
+				try
+				{
+					var asm = Assembly.LoadFrom(file);
+					foreach (var type in asm.GetTypes())
+					{
+						type.GetMethod("Main").Invoke(null, new object[0]);
+					}
+					plugins.Add(asm);
+					AppDomain.CurrentDomain.Load(asm.GetName());
+					AddLog("[ModLoader] Loaded mod: " + file);
+				}
+				catch (Exception e)
+				{
+					AddLog("[ModLoader] Failed to load mod: " + file);
+					AddLog("[ModLoader] Fault: " + e.ToString());
+				}
+			}
+			LabModUpdate.Init();
+			LabModGameConsoleQuery.Init();
+			LabModPlayerHurt.Init();
+			LabModPostRoundStart.Init();
+			LabModRoundStart.Init();
+			LabModPreRoundStart.Init();
+			LabModRoundEnd.Init();
+		}
+	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LabMod.Events
 {
-    public interface ILabModEvent
-    {
-    }
+	public interface ILabModEvent
+	{
+	}
 }
