@@ -16,6 +16,7 @@ namespace LabMod.Loader
     class Loader : ServerConsole
     {
         public static List<Assembly> plugins;
+        public static List<Type> types_with_event;
 
         public extern void orig_Update();
         public void Update()
@@ -52,6 +53,13 @@ namespace LabMod.Loader
                     AddLog("[ModLoader] Fault: " + e.ToString());
                 }
             }
+            LabModUpdate.Init();
+            LabModGameConsoleQuery.Init();
+            LabModPlayerHurt.Init();
+            LabModPostRoundStart.Init();
+            LabModRoundStart.Init();
+            LabModPreRoundStart.Init();
+            LabModRoundEnd.Init();
         }
     }
 }

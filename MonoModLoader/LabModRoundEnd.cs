@@ -17,11 +17,17 @@ namespace LabMod.Events
 
     public class LabModRoundEnd
     {
+        public static List<Type> types_update = new List<Type>();
+
+        public static void Init()
+        {
+            types_update = new List<Type>(AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModRoundEnd).IsAssignableFrom(p) && !p.IsInterface));
+        }
+
         public static void TriggerEvent(RoundSummary sum, RoundSummary.SumInfo_ClassList list_start, RoundSummary.SumInfo_ClassList list_finish, RoundSummary.LeadingTeam leadingTeam, int e_ds, int e_sc, int scp_kills, int round_cd)
         {
             //bool shouldstop = false;
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModRoundEnd).IsAssignableFrom(p) && !p.IsInterface);
-            foreach (var type in types)
+            foreach (var type in types_update)
             {
                 if (LabMod.GetObjectOfType(type) == null)
                     continue;

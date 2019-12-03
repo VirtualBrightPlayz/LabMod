@@ -17,10 +17,18 @@ namespace LabMod.Events
 
     public class LabModUpdate
     {
+        public static List<Type> types_update = new List<Type>();
+
+        public static void Init()
+        {
+            types_update = new List<Type>(AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface));
+        }
+
         public static void TriggerEvent()
         {
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface);
-            foreach (var type in types)
+            //Huge thanks to all the smarter people who pointed out that this will lag the hell out of the server
+            //var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes()).Where(p => typeof(ILabModUpdate).IsAssignableFrom(p) && !p.IsInterface);
+            foreach (var type in types_update)
             {
                 if (LabMod.GetObjectOfType(type) == null)
                     continue;
