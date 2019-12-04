@@ -32,6 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CharClassManPatch.cs" />
+    <Compile Include="LabModJoinLate.cs" />
+    <Compile Include="LabModLCZDecont.cs" />
+    <Compile Include="LabModPlayerEscape.cs" />
+    <Compile Include="LabModPlayerJoin.cs" />
     <Compile Include="LabModUpdate.cs" />
     <Compile Include="LabModRoundEnd.cs" />
     <Compile Include="LabModRoundStart.cs" />
@@ -39,7 +43,9 @@
     <Compile Include="LabModGameConsoleQuery.cs" />
     <Compile Include="LabMod.cs" />
     <Compile Include="LabModEvent.cs" />
+    <Compile Include="LCZDecontPatch.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="NickSyncPatch.cs" />
     <Compile Include="PlrStatPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryPatch.cs" />

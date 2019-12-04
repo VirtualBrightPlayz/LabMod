@@ -32,6 +32,33 @@ namespace LabMod
 			LabModPostRoundStart.TriggerEvent(this);
 		}
 
+		public extern void orig_Start();
+		public void Start()
+		{
+			orig_Start();
+			//not used, no nickname setup
+			//LabModPlayerJoin.TriggerEvent(this);
+		}
+
+		public extern void orig_CallCmdRegisterEscape();
+		public void CallCmdRegisterEscape()
+		{
+			bool stop = false;
+			LabModPlayerEscape.TriggerEvent(this, out stop);
+			if (!stop)
+				orig_CallCmdRegisterEscape();
+		}
+
+		public extern IEnumerator<float> orig__LaterJoin();
+		public IEnumerator<float> _LaterJoin()
+		{
+			bool stop = false;
+			LabModJoinLate.TriggerEvent(this, out stop);
+			if (!stop)
+				orig__LaterJoin();
+			yield return 0f;
+		}
+
 		public System.Collections.IEnumerator EndRoundSoon(float sec)
 		{
 			yield return new WaitForSeconds(sec);
