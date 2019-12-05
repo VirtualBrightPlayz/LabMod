@@ -40,7 +40,8 @@ namespace LabMod.Loader
 					var asm = Assembly.LoadFrom(file);
 					foreach (var type in asm.GetTypes())
 					{
-						type.GetMethod("Main").Invoke(null, new object[0]);
+						if (type.GetMethod("Main") != null)
+							type.GetMethod("Main").Invoke(null, new object[0]);
 					}
 					plugins.Add(asm);
 					AppDomain.CurrentDomain.Load(asm.GetName());
