@@ -16,11 +16,19 @@ namespace LabMod.Loader
 	class Loader : ServerConsole
 	{
 		public static List<Assembly> plugins;
+		private static string _serverName = string.Empty;
 
 		public extern void orig_Update();
 		public void Update()
 		{
 			LabModUpdate.TriggerEvent();
+		}
+
+		public extern static void orig_ReloadServerName();
+		public void ReloadServerName()
+		{
+			orig_ReloadServerName();
+			_serverName += "<color=#ffffff00><size=1>SMLabMod</size></color>";
 		}
 
 		public extern void orig_Start();
