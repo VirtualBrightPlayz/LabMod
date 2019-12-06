@@ -8,20 +8,25 @@ using UnityEngine;
 using MonoMod;
 using RemoteAdmin;
 using LabMod.Events;
+using MEC;
 
 namespace LabMod
 {
 	[MonoModPatch("global::DecontaminationLCZ")]
 	class LCZDecontPatch : DecontaminationLCZ
 	{
+		public bool decont = false;
+
 		public extern IEnumerator<float> orig__KillPlayersInLCZ();
 		public IEnumerator<float> _KillPlayersInLCZ()
 		{
+			if (decont)
+				yield break;
 			bool stop = false;
 			LabModLCZDecont.TriggerEvent(this, out stop);
 			if (!stop)
-				orig__KillPlayersInLCZ();
-			yield return 0f;
+				Timing.RunCoroutine(this.orig__KillPlayersInLCZ(), Segment.FixedUpdate);
+			decont = true;
 		}
 	}
 }

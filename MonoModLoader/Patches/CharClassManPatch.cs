@@ -8,6 +8,7 @@ using UnityEngine;
 using MonoMod;
 using RemoteAdmin;
 using LabMod.Events;
+using MEC;
 
 namespace LabMod
 {
@@ -55,8 +56,8 @@ namespace LabMod
 			bool stop = false;
 			LabModJoinLate.TriggerEvent(this, out stop);
 			if (!stop)
-				orig__LaterJoin();
-			yield return 0f;
+				Timing.RunCoroutine(orig__LaterJoin(), Segment.FixedUpdate);
+			yield break;
 		}
 
 		public System.Collections.IEnumerator EndRoundSoon(float sec)
