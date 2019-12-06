@@ -73,6 +73,8 @@ namespace LabMod.Loader
 				LabModJoinLate.Init();
 				LabModPlayerEscape.Init();
 				LabModPlayerJoin.Init();
+				LabModLCZDecont.Init();
+				LabModAlphaWarheadDetonate.Init();
 			}
 			catch (Exception e)
 			{

@@ -12,21 +12,16 @@ using MEC;
 
 namespace LabMod
 {
-	//[MonoModPatch("global::DecontaminationLCZ")]
+	[MonoModPatch("global::DecontaminationLCZ")]
 	class LCZDecontPatch : DecontaminationLCZ
 	{
-		public bool decont = false;
-
 		public extern IEnumerator<float> orig__KillPlayersInLCZ();
 		public IEnumerator<float> _KillPlayersInLCZ()
 		{
-			if (decont)
-				yield break;
 			bool stop = false;
 			LabModLCZDecont.TriggerEvent(this, out stop);
 			if (!stop)
 				Timing.RunCoroutine(this.orig__KillPlayersInLCZ(), Segment.FixedUpdate);
-			decont = true;
 			yield break;
 		}
 	}

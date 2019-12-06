@@ -11,7 +11,7 @@ using LabMod.Events;
 
 namespace LabMod
 {
-	//[MonoModPatch("global::AlphaWarheadController")]
+	[MonoModPatch("global::AlphaWarheadController")]
 	class AlphaWarheadPatch : AlphaWarheadController
 	{
 		public extern void orig_Detonate();
