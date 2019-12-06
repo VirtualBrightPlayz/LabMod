@@ -12,7 +12,7 @@ using MEC;
 
 namespace LabMod
 {
-	[MonoModPatch("global::DecontaminationLCZ")]
+	//[MonoModPatch("global::DecontaminationLCZ")]
 	class LCZDecontPatch : DecontaminationLCZ
 	{
 		public bool decont = false;
@@ -27,6 +27,7 @@ namespace LabMod
 			if (!stop)
 				Timing.RunCoroutine(this.orig__KillPlayersInLCZ(), Segment.FixedUpdate);
 			decont = true;
+			yield break;
 		}
 	}
 }
