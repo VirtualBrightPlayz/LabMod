@@ -22,6 +22,11 @@ namespace LabMod
 			public RoleType rtspawn;
 		}
 
+		public string AuthToken;
+
+		[MonoModPublic]
+		public string GetAuthToken() => AuthToken;
+
 		public extern void orig_SetRandomRoles();
 		public void SetRandomRoles()
 		{

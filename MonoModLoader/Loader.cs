@@ -17,6 +17,19 @@ namespace LabMod.Loader
 	{
 		public static List<Assembly> plugins;
 		private static string _serverName = string.Empty;
+		[MonoModPublic]
+		public string ServerName
+		{
+			get
+			{
+				return _serverName;
+			}
+			set
+			{
+				_serverName = value;
+				ReloadServerName();
+			}
+		}
 
 		public extern void orig_Update();
 		public void Update()
@@ -48,8 +61,14 @@ namespace LabMod.Loader
 					var asm = Assembly.LoadFrom(file);
 					foreach (var type in asm.GetTypes())
 					{
-						if (type.GetMethod("Main") != null)
-							type.GetMethod("Main").Invoke(null, new object[0]);
+						try
+						{
+							if (type.GetMethod("Main") != null)
+								type.GetMethod("Main").Invoke(null, new object[0]);
+						}
+						finally
+						{
+						}
 					}
 					plugins.Add(asm);
 					AppDomain.CurrentDomain.Load(asm.GetName());
@@ -75,6 +94,7 @@ namespace LabMod.Loader
 				LabModPlayerJoin.Init();
 				LabModLCZDecont.Init();
 				LabModAlphaWarheadDetonate.Init();
+				LabModCISpawn.Init();
 			}
 			catch (Exception e)
 			{

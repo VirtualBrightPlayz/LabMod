@@ -14,6 +14,9 @@ namespace LabMod
     [MonoModPatch("global::RoundSummary")]
     class RoundSumPatch : RoundSummary
     {
+		private bool roundEnded;
+		[MonoModPublic]
+		public bool IsRoundEnded { get => roundEnded; set => roundEnded = value; }
 
 		public extern void orig_RpcShowRoundSummary(RoundSummary.SumInfo_ClassList list_start, RoundSummary.SumInfo_ClassList list_finish, RoundSummary.LeadingTeam leadingTeam, int e_ds, int e_sc, int scp_kills, int round_cd);
 		[MonoModPublic]

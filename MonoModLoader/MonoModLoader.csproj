@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Events\LabModAlphaWarheadDetonate.cs" />
+    <Compile Include="Events\LabModCISpawn.cs" />
     <Compile Include="Patches\AlphaWarheadPatch.cs" />
     <Compile Include="Patches\CharClassManPatch.cs" />
     <Compile Include="Events\LabModJoinLate.cs" />
@@ -47,8 +48,10 @@
     <Compile Include="Events\LabModEvent.cs" />
     <Compile Include="Patches\LCZDecontPatch.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="Patches\MTFRespPatch.cs" />
     <Compile Include="Patches\NickSyncPatch.cs" />
     <Compile Include="Patches\PlrStatPatch.cs" />
+    <Compile Include="Patches\SrvRolesPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Patches\QueryPatch.cs" />
     <Compile Include="Patches\RoundSumPatch.cs" />
